@@ -1,0 +1,37 @@
+name: terraform
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform_plan1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+    - uses: hashicorp/setup-terraform@v2
+      name: Setup Terraform
+      with:
+        terraform_version: "1.6.3"
+        terraform_wrapper: false
+    - name: Terraform Init
+      run: terraform init
+    - name: Terraform Plan
+      run: terraform plan
+  terraform_plan2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+    - uses: hashicorp/setup-terraform@v2
+      name: Setup Terraform
+      with:
+        terraform_version: "1.6.3"
+        terraform_wrapper: false
+    - name: Terraform Init
+      run: terraform init
+    - name: Terraform Plan
+      run: terraform plan -var-file="test.tfvars"
